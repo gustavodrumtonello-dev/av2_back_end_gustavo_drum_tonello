@@ -7,10 +7,16 @@
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": ["cinestream", "streaming", "api", "filmes"],
+  "keywords": [
+    "cinestream",
+    "streaming",
+    "api",
+    "filmes"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^4.18.2"
   },
   "devDependencies": {

@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const cors = require('cors'); // 1. Importa o cors
+app.use(cors());              // 2. Libera para o front-end acessar
 
 /*
  * ESTRUTURA DO BANCO DE DADOS (REFERÊNCIA SQL)

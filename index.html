@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineStream - Sua Plataforma de Filmes</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./index.js">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 CineStream</h1>
+            <p class="subtitle">Sua plataforma de streaming favorita</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
+            <button class="tab-btn" onclick="showSection('filmes')">🎥 Filmes</button>
+            <button class="tab-btn" onclick="showSection('usuarios')">👤 Usuários</button>
+            <button class="tab-btn" onclick="showSection('favoritos')">❤️ Favoritos</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="section active">
+            <h2 class="section-title">Dashboard</h2>
+            <div class="stats" id="dashboardStats">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalFilmes">0</div>
+                    <div class="stat-label">Filmes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="totalUsuarios">0</div>
+                    <div class="stat-label">Usuários</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="totalFavoritos">0</div>
+                    <div class="stat-label">Favoritos</div>
+                </div>
+            </div>
+            <div class="loading" id="dashboardLoading">
+                <div class="spinner"></div>
+                <p>Carregando dados...</p>
+            </div>
+        </div>
+
+        <!-- Filmes -->
+        <div id="filmes" class="section">
+            <h2 class="section-title">Catálogo de Filmes</h2>
+            <div class="message" id="filmeMessage"></div>
+            
+            <div class="form-container">
+                <h3 class="form-title">Adicionar Novo Filme</h3>
+                <div class="inline-form">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="filmeTitulo">Título</label>
+                        <input type="text" id="filmeTitulo" placeholder="Nome do filme" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="filmeGenero">Gênero</label>
+                        <input type="text" id="filmeGenero" placeholder="Gênero" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="filmeAno">Ano</label>
+                        <input type="number" id="filmeAno" placeholder="Ano" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn" onclick="adicionarFilme()" style="margin-top: 23px;">➕ Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="filmesLoading">
+                <div class="spinner"></div>
+                <p>Carregando filmes...</p>
+            </div>
+            <div class="cards-grid" id="filmesGrid"></div>
+        </div>
+
+        <!-- Usuários -->
+        <div id="usuarios" class="section">
+            <h2 class="section-title">Usuários Cadastrados</h2>
+            <div class="message" id="usuarioMessage"></div>
+            
+            <div class="form-container">
+                <h3 class="form-title">Adicionar Novo Usuário</h3>
+                <div class="inline-form">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="usuarioNome">Nome</label>
+                        <input type="text" id="usuarioNome" placeholder="Nome completo" required>
+                    </div>
+                    <div class="form-group" style="flex: 2;">
+                        <label for="usuarioEmail">Email</label>
+                        <input type="email" id="usuarioEmail" placeholder="email@exemplo.com" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="usuarioPlano">Plano</label>
+                        <select id="usuarioPlano">
+                            <option value="Básico">Básico</option>
+                            <option value="Premium">Premium</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn" onclick="adicionarUsuario()" style="margin-top: 23px;">➕ Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="usuariosLoading">
+                <div class="spinner"></div>
+                <p>Carregando usuários...</p>
+            </div>
+            <div class="cards-grid" id="usuariosGrid"></div>
+        </div>
+
+        <!-- Favoritos -->
+        <div id="favoritos" class="section">
+            <h2 class="section-title">Gerenciar Favoritos</h2>
+            <div class="message" id="favoritoMessage"></div>
+            
+            <div class="form-container">
+                <h3 class="form-title">Adicionar aos Favoritos</h3>
+                <div class="inline-form">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="favUsuario">Usuário</label>
+                        <select id="favUsuario">
+                            <option value="">Selecione um usuário</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="favFilme">Filme</label>
+                        <select id="favFilme">
+                            <option value="">Selecione um filme</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn" onclick="adicionarFavorito()" style="margin-top: 23px;">❤️ Favoritar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <h3 class="form-title">Buscar Favoritos por Usuário</h3>
+                <div class="inline-form">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="buscarFavUsuario">Usuário</label>
+                        <select id="buscarFavUsuario">
+                            <option value="">Todos os usuários</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn" onclick="buscarFavoritos()" style="margin-top: 23px;">🔍 Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="favoritosLoading">
+                <div class="spinner"></div>
+                <p>Carregando favoritos...</p>
+            </div>
+            <div id="favoritosResult" style="margin-top: 20px;"></div>
+            <div class="cards-grid" id="favoritosGrid"></div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
